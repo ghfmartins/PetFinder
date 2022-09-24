@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String            @id @default(uuid())
+  name            String
+  email           String
+  logradouro      String?
+  numero          Int?
+  complemento     String?
+  bairro          String?
+  cidade          String?
+  estado          String?
+  senha           String?
+  telefone        String?
+  CEP             String?
+  Desaparecimento Desaparecimento[]
+  Achado          Achado[]
+  Adocao          Adocao[]
+}
+
+model Pet {
+  id              String            @id @default(uuid())
+  especie         String
+  raca            String?
+  cor             String?
+  nome            String?
+  idade           String?
+  sexo            String?
+  castrado        Boolean?
+  vacinas         String?
+  urlFoto         String?
+  Desaparecimento Desaparecimento[]
+  Achado          Achado[]
+  Adocao          Adocao[]
+}
+
+model Desaparecimento {
+  user                        User   @relation(fields: [user_id], references: [id])
+  user_id                     String
+  pet                         Pet    @relation(fields: [pet_id], references: [id])
+  pet_id                      String
+  ultimo_local_de_avistamento String
+  bairro                      String
+  cidade                      String
+  situacao                    String
+
+  @@id([user_id, pet_id])
+}
+
+model Achado {
+  user             User   @relation(fields: [user_id], references: [id])
+  user_id          String
+  pet              Pet    @relation(fields: [pet_id], references: [id])
+  pet_id           String
+  local_encontrado String
+  bairro           String
+  cidade           String
+  situacao         String
+
+  @@id([user_id, pet_id])
+}
+
+model Adocao {
+  user     User   @relation(fields: [user_id], references: [id])
+  user_id  String
+  pet      Pet    @relation(fields: [pet_id], references: [id])
+  pet_id   String
+  situacao String
+
+  @@id([user_id, pet_id])
+}
