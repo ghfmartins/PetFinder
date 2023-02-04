@@ -1,0 +1,19 @@
+##Para rodar o programa é necessário ter instalado o nodejs v.16.16.0 ou superior.
+
+1 - Após copiar o repositorio, abra o projeto no terminal e mude para a pasta /codebase:
+    cd codebase/
+
+2 - Execute o seu gerenciador de pacotes (npm ou yarn) para baixar as dependências do projeto:
+    yarn 
+
+3 - Após o download com sucesso crie dentro da pasta codebase um arquivo .env:
+    touch .env
+
+4 - Copie para este arquivo o seguinte texto e salve:
+    DATABASE_URL="file:./dev.db"
+
+5 - Execute a migration do prisma orm para criar o banco de dados sqlite:
+    yarn prisma migrate dev --name new_init
+
+6 - Ocorrendo tudo com sucesso, o banco será criado dentro de um diretório /prisma. Agora que está tudo completo execute o seguinte comando para iniciar a API na porta 3001:
+    yarn dev

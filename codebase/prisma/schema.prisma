@@ -15,13 +15,13 @@ model User {
   id              String            @id @default(uuid())
   name            String
   email           String
+  senha           String
   logradouro      String?
   numero          Int?
   complemento     String?
   bairro          String?
   cidade          String?
   estado          String?
-  senha           String?
   telefone        String?
   CEP             String?
   Desaparecimento Desaparecimento[]
